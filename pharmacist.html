@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacist Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Pharmacist Dashboard</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Weight</th>
+                    <th>Height</th>
+                    <th>Condition</th>
+                    <th>Approved Medication</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="approvedData"></tbody>
+        </table>
+        <button onclick="goBack()">Back</button>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        // Load Approved Data in Pharmacist Dashboard
+        window.onload = function () {
+            const approvedData = JSON.parse(localStorage.getItem("approvedPatients")) || [];
+            const pharmacistTable = document.getElementById("approvedData");
+
+            pharmacistTable.innerHTML = ""; // Clear existing rows
+
+            approvedData.forEach((patient, index) => {
+                let row = pharmacistTable.insertRow();
+                row.innerHTML = `
+                    <td>${patient.name}</td>
+                    <td>${patient.age}</td>
+                    <td>${patient.gender}</td>
+                    <td>${patient.weight}</td>
+                    <td>${patient.height}</td>
+                    <td>${patient.condition}</td>
+                    <td>${patient.dose}</td>
+                    <td><button onclick="dispense(${index})">Dispense</button></td>
+                `;
+            });
+        };
+    </script>
+
+</body>
+</html>
